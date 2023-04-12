@@ -114,7 +114,7 @@ for(let i = 0; i <persons.length; i++) {
 //lambda loop
 persons.forEach(x => console.log(x));
 
-//objects
+//objects: Key : value
 let malin = {
     firstName: 'Malin',
     lastName: 'Larsson',
@@ -127,4 +127,123 @@ console.log(`First name: ${malin.firstName}`);
 let malinStr = `${malin.firstName} ${malin.lastName}, age: ${malin.age}`;
 console.log(malinStr);
 
-    
+let malinAdvanced = {
+    firstName: 'Malin',
+    lastName: 'Larsson',
+    age: 33,
+    hobbies: ['baking', 'reading', 'movies']
+};
+
+console.log(malinAdvanced); //Object
+let malinJSON = JSON.stringify(malinAdvanced); //object to JSON
+console.log(malinJSON);
+console.log(JSON.parse(malinJSON)); // back to object
+
+
+//loop over object
+for(let propertyName in malinAdvanced) {
+    let propertyValue = malinAdvanced[propertyName];
+    console.log(propertyName, propertyValue);
+}
+for(let propertyName in malinAdvanced) {
+    let propertyValue = malinAdvanced[propertyName];
+    if(Array.isArray(propertyValue) === true) {
+        for(let hobby of propertyValue){
+            console.log("Hobby: " + hobby);
+        }
+    } else {
+        console.log(propertyName + ' : ' + propertyValue);
+    }
+}
+
+//connection to html
+//ask js to create a new element
+let myDiv = document.createElement('div');
+//add some html
+myDiv.innerHTML =`
+<h1>Hello from JS</h1>
+<p>This text is for JavaSpript, my age is ${malin.age}</p>
+`;
+
+//grab the body tag
+let body = document.querySelector('body');
+
+//Add div to html
+body.append(myDiv);
+
+//another way to add data
+let myBands = [ 
+    {
+    name: 'The Beatles',
+    genre: 'pop'   
+    },
+    {
+        name: 'The Rolling Stones',
+        genre: 'Rock'
+    }
+];
+
+//Grab the bands div
+let bandsDiv = document.querySelector('#bands');
+for(let band of myBands) {
+    bandsDiv.innerHTML += `
+    <div class= "band">
+    <h2>${band.name}</h2>
+    <p>Genre: ${band.genre}</p>
+    </div>
+    `;
+}
+
+//functions
+function sayHello() {
+    console.log('Hello');
+}
+
+const sayHello2 = () => {
+    console.log('Hello 2');
+}
+
+sayHello();
+sayHello2();
+
+//different ways to declare same function
+//function declaration
+function add(a, b) {
+    return a + b;
+}
+//arrow function
+const add2 = (a, b) => {
+    return a + b;
+}
+//function expression
+const add3 = function(a, b) {
+    return a + b;
+}
+
+//arrow function with implicit return
+const add4 = (a, b) => a + b;
+//arrow function with implicit return and one parameter
+const add5 = a => a +5;
+
+console.log(add(1, 2));
+console.log(add2(1, 2));
+console.log(add3(1, 2));
+console.log(add4(1, 2));
+console.log(add5(1));
+
+class Person {
+    constructor(name, age, hobby){
+        this.name = name;
+        this.age = age;
+        this.hobby = hobby;
+    }
+
+    greetings() {
+        console.log(`Hi, my name is ${this.name} and I am ${this.age}`);
+        console.log('I enjoy: ' + this.hobby);
+        
+    }
+}
+
+const malinClass = new Person('Malin', 33, 'wine');
+malinClass.greetings();
